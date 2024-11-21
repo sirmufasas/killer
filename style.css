@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css?family=Creepster");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Canvas Background */
+canvas {
+  background: radial-gradient(rgb(150, 200, 150), rgb(50, 100, 50));
+}
+
+/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #04002b;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent scrollbars during zoom */
+}
+
+/* Enable Sound Button Styling */
+#enableAudio {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 50%; /* Vertically centered */
+    left: 50%; /* Horizontally centered */
+    transform: translate(-50%, -50%); /* Adjusts for exact center */
+    padding: 15px 30px; /* Adds padding for a larger button */
+    background-color: #0b023e; /* Attractive red color */
+    color: #fff; /* White text */
+    font-family: 'Roboto Mono', monospace; /* Modern and clean font */
+    font-size: 1.2rem; /* Slightly larger text size */
+    border: none; /* Removes default border */
+    border-radius: 30px; /* Makes the button fully rounded */
+    cursor: pointer; /* Pointer cursor for interaction */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animation on hover */
+}
+
+#enableAudio:hover {
+    transform: translate(-50%, -50%) scale(1.1); /* Slight zoom on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Darker shadow on hover */
+}
+
+#enableAudio:active {
+    transform: translate(-50%, -50%) scale(1); /* Revert to original size on click */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Original shadow on click */
+}
+
+
+#videoContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Ensures parts of the video outside the container are hidden */
+    display: flex;
+    align-items: flex-start; /* Aligns video to the top */
+    justify-content: center; /* Centers the video horizontally */
+    background-color: black; /* Smooth background appearance */
+}
+
+#introVideo {
+    position: absolute;
+    top: 19%;
+    left: 50%; /* Aligns the video center horizontally */
+    transform: translateX(-50%); /* Centers the video on the x-axis */
+    width: 1200px; /* Allows natural width scaling */
+    height: 400px;  /* Maintain aspect ratio */
+    object-fit: cover; /* Ensures the video fills the area without distortion */
+}
+
+/* Loader styles */
+#loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: fixed;  /* Fix the loader to the screen */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+}
+
+/* Loader text */
+#loader h1 {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5rem; /* Adjusted for smaller screens */
+    animation: blink 1s infinite;
+    color: white;
+    position: absolute; /* Use absolute positioning to center the text */
+    top: 50%; /* Position the text in the vertical center */
+    left: 50%; /* Position the text in the horizontal center */
+    transform: translate(-50%, -50%); /* Move the text back by 50% of its size to fully center it */
+    z-index: 2; /* Ensure text stays above the image */
+}
+
+/* Loader image */
+#loader img {
+    width: 100%; /* Ensure the image fills the width */
+    height: 100%; /* Ensure the image fills the height */
+    object-fit: cover; /* Ensure the image covers the space without distortion */
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: zoomIn 20s ease-in-out forwards; /* Smooth zoom-in animation */
+    z-index: 1; /* Keep the image behind the text */
+}
+
+#videoContainer {
+    animation: fadeOut 1s ease-out forwards;
+    animation-delay: 5s; /* Matches video duration */
+}
+
+/* Blink animation for text */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Zoom animation for the image */
+@keyframes zoomIn {
+    0% {
+        transform: scale(1); /* Start from normal size */
+    }
+    50% {
+        transform: scale(1.08); /* Slight zoom in the middle */
+    }
+    100% {
+        transform: scale(1.2); /* Slightly overfill the screen at the end */
+    }
+}
+
+/* Game canvas styling (hidden initially) */
+#gameCanvas {
+    display: none;
+    background: radial-gradient(rgb(150, 200, 150), rgb(50, 100, 50));
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #introVideo {
+        top: 20%;
+        width: 90%; /* Reduce width for smaller screens */
+    }
+
+    #loader h1 {
+        font-size: 2rem; /* Smaller text for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    #introVideo {
+        top: 25%;
+        width: 100%; /* Full width for phones */
+    }
+
+    #loader h1 {
+        font-size: 1.5rem; /* Smaller text for phones */
+    }
+}

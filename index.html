@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mufasa Killer Bean</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Video element that plays before the loader -->
+    <div id="videoContainer">
+        <video id="introVideo" autoplay muted>
+            <source src="killer.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <!-- Provide a play button for user interaction -->
+        <button id="enableAudio" style="display: none;">Enable Sound</button>
+    </div>
+    
+    <!-- Loader -->
+    <div id="loader" style="display: none;">
+        <h1>Loading Mufasa Killer Bean...</h1>
+        <img src="bean.jpg" alt="Loading">
+    </div>
+
+    <!-- Game Canvas (hidden initially) -->
+    <canvas id="gameCanvas" style="display: none;">Your browser does not support HTML5 Canvas :(</canvas>
+
+    <!-- Background Audio (for loader and game) -->
+    <audio id="backgroundAudio" loop preload="auto">
+        <source src="thug.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="script.js"></script>
+    <script>
+      window.onload = function() {
+    const introVideo = document.getElementById('introVideo');
+    const backgroundAudio = document.getElementById('backgroundAudio');
+    const enableAudioButton = document.getElementById('enableAudio');
+
+    // Ensure the audio is paused initially
+    backgroundAudio.pause();
+
+    // Ensure video is ready to play
+    introVideo.oncanplaythrough = function() {
+        introVideo.play(); // Start playing when fully buffered
+    };
+
+    // Prompt for user interaction to enable sound
+    introVideo.addEventListener('play', function() {
+        if (introVideo.muted) {
+            enableAudioButton.style.display = 'block';
+        }
+    });
+
+    enableAudioButton.addEventListener('click', () => {
+        introVideo.muted = false; // Unmute the video
+        enableAudioButton.style.display = 'none'; // Hide the button
+    });
+
+    // Event listener for when the video ends
+    introVideo.addEventListener('ended', () => {
+        // Hide the video container
+        document.getElementById('videoContainer').style.display = 'none';
+
+        // Show the loader
+        document.getElementById('loader').style.display = 'block';
+
+        // Play background audio only when the video ends
+        backgroundAudio.play();
+
+        // Transition to the game canvas after loader duration
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('gameCanvas').style.display = 'block';
+        }, 9000); // Loader visible for 9 seconds
+    });
+};
+
+    </script>
+</body>
+</html>
